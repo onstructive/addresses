@@ -82,11 +82,11 @@ Please find and extend the test at `server/src/test/groovy`. The tests are writt
 
 ## Code style
 
-The code style is enforced by the build. If you run into code style issues simply run `./gradlew spotlessApply` and your code style will be compliant.
+The code style is being enforced by the Gradle build. If you run into code style issues simply run `./gradlew spotlessApply` and your code style will be compliant.
 
 ## Once you are done 🎓
 
-When you are done with your work please please give `saw303` access to your private fork repository and send me the link to the repository at silvio@onstructive.ch. Thank you.
+When you are done with your work please give `saw303` access to your private fork repository and send me the link to the repository at silvio@onstructive.ch. Thank you.
 
 ## Questions ❔
 

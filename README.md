@@ -12,7 +12,7 @@ The main goal of this assignment is to understand how you are solving problems.
 
 Make sure you have installed the following tools:
 
-- JDK 14 (You can use sdkman to easily switch between JDK installations (see https://sdkman.io/jdks)).
+- JDK 14 (You can use sdkman to easily switch between JDK installations. See https://sdkman.io/jdks).
 - Your favourite Java IDE. We recommend using IntelliJ IDEA.
 - Gradle (the project provides a Gradlew wrapper, so no additional installation is required)
 

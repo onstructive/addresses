@@ -24,7 +24,7 @@ Please fork this repository and make your fork repo private. By doing it that wa
 
 ### Assignment 1 - Analyze the existing code 👓
 
-Walkthrough the existing code and try to run and understand it. We would like you to explain how the application works. Feel free to ask questions on parts you don't understand.
+Walk through the existing code and try to run and understand it. We would like you to explain how the application works. Feel free to ask questions on parts you don't understand.
 
 For IntelliJ users: The repository contains a file called `postalCodes.http` that can be used to run HTTP calls against locally running Micronaut application. This might help you to discover the application.
 
@@ -34,7 +34,7 @@ Within this project you find the following modules.
 
 ##### Domain
 
-The domain module represents the persistence layer and holds JPA entities and their repositories (see https://micronaut-projects.github.io/micronaut-data/latest/guide/).
+The domain module represents the persistence layer and holds JPA entities, and their repositories (see https://micronaut-projects.github.io/micronaut-data/latest/guide/).
 
 ##### Services API
 
@@ -42,7 +42,7 @@ A service api module for interacting with backend services.
 
 ##### Services
 
-This is the business service layer that implements specific business logic. It is responsible for defining the transactional boundries.
+This is the business service layer that implements specific business logic. It is responsible for defining the transactional boundaries.
 
 ##### REST API
 
@@ -90,4 +90,4 @@ When you are done with your work please give `saw303` access to your private for
 
 ## Questions ❔
 
-If you have any questions please do not hesiate to contact me at silvio@onstructive.ch
+If you have any questions please do not hesitate to contact me at silvio@onstructive.ch

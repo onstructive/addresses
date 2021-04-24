@@ -1,4 +1,4 @@
 dependencies {
-    implementation project(":domain")
-    implementation project(":services-api")
+    implementation projects.domain
+    implementation projects.servicesApi
 }

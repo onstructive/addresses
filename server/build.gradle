@@ -2,10 +2,10 @@ apply plugin: "com.github.johnrengelman.shadow"
 
 
 dependencies {
-    implementation project(":services-api")
-    implementation project(":services")
-    implementation project(":domain")
-    implementation project(":rest-api")
+    implementation projects.servicesApi
+    implementation projects.services
+    implementation projects.domain
+    implementation projects.restApi
 }
 
 application {

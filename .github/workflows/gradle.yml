@@ -1,15 +1,11 @@
 name: Java CI
 
-on: [push]
+on: [ push ]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java: [ '15', '16' ]
-
     steps:
       - uses: actions/checkout@v2
         with:
@@ -29,6 +25,6 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: ${{ matrix.java }}
+          java-version: 15
       - name: Perform all tests
         run: ./gradlew -stacktrace --parallel check

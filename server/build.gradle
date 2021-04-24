@@ -1,4 +1,3 @@
-apply plugin: 'application'
 apply plugin: "com.github.johnrengelman.shadow"
 
 
@@ -9,20 +8,6 @@ dependencies {
     implementation project(":rest-api")
 }
 
-mainClassName = "ch.onstructive.candidates.Application"
-
-shadowJar {
-    mergeServiceFiles()
-}
-
-tasks.withType(JavaExec) {
-    classpath += configurations.developmentOnly
-    jvmArgs('-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
-    if (gradle.startParameter.continuous) {
-        systemProperties(
-                'micronaut.io.watch.restart':'true',
-                'micronaut.io.watch.enabled':'true',
-                "micronaut.io.watch.paths":"src/main"
-        )
-    }
+application {
+    mainClass.set("ch.onstructive.candidates.Application")
 }

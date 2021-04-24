@@ -1,86 +1,53 @@
-buildscript {
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-    dependencies {
-        classpath "com.github.jengelman.gradle.plugins:shadow:6.0.0"
-        classpath "com.diffplug.spotless:spotless-plugin-gradle:4.4.0"
-        classpath "net.ltgt.gradle:gradle-apt-plugin:0.21"
-    }
+plugins {
+    id "groovy"
+    id "com.github.johnrengelman.shadow" version "6.1.0" apply false
+    id "io.micronaut.library" version "1.4.2" apply false
+    id "io.micronaut.application" version "1.4.2" apply false
+    id "com.diffplug.spotless" version "5.12.4" apply false
 }
 
 subprojects { subproject ->
 
-    apply plugin: 'java'
-    apply plugin: 'groovy'
-    apply plugin: "com.diffplug.gradle.spotless"
-    apply plugin: "net.ltgt.apt"
-
     version "0.1"
     group "ch.onstructive.candidates"
 
-    repositories {
-        mavenCentral()
-        jcenter()
+    if (subproject.name.endsWith("server")) {
+        apply plugin: "io.micronaut.application"
     }
+    else {
+        apply plugin: "io.micronaut.library"
+    }
+    apply plugin: 'groovy'
+    apply plugin: "com.diffplug.spotless"
 
-    configurations {
-        // for dependencies that are needed for development only
-        developmentOnly
+    micronaut {
+        runtime("netty")
+        testRuntime("spock2")
+        processing {
+            incremental(true)
+            annotations("com.example.*")
+        }
     }
 
     dependencies {
-        annotationProcessor(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-        annotationProcessor("io.micronaut:micronaut-inject-java")
-        annotationProcessor("io.micronaut:micronaut-validation")
         annotationProcessor("io.micronaut.data:micronaut-data-processor")
-        implementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-        implementation("io.micronaut:micronaut-inject")
-        implementation("io.micronaut:micronaut-validation")
-        implementation("io.micronaut:micronaut-runtime")
-        implementation("javax.annotation:javax.annotation-api")
-        implementation("io.micronaut:micronaut-http-server-netty")
         implementation("io.micronaut:micronaut-http-client")
+        implementation("io.micronaut:micronaut-runtime")
+        implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
         implementation("io.micronaut.flyway:micronaut-flyway")
         implementation("io.micronaut.sql:micronaut-jdbc-hikari")
-        implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
+        implementation("javax.annotation:javax.annotation-api")
+        implementation("io.micronaut:micronaut-validation")
         runtimeOnly("ch.qos.logback:logback-classic")
         runtimeOnly("com.h2database:h2")
-        testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-        testImplementation("io.micronaut:micronaut-inject-groovy")
-        testImplementation("org.spockframework:spock-core") {
-            exclude group: "org.codehaus.groovy", module: "groovy-all"
-        }
-        testImplementation("io.micronaut.test:micronaut-test-spock")
 
-        implementation 'org.mapstruct:mapstruct:1.3.1.Final'
-        annotationProcessor 'org.mapstruct:mapstruct-processor:1.3.1.Final'
-    }
-
-    test.classpath += configurations.developmentOnly
-
-    // use JUnit 5 platform
-    test {
-        useJUnitPlatform()
+        implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+        annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     }
 
     java {
-        sourceCompatibility = JavaVersion.toVersion('13')
-        targetCompatibility = JavaVersion.toVersion('13')
-    }
-
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
-        options.compilerArgs.addAll([
-                '-parameters',
-                // enables incremental compilation
-                '-Amicronaut.processing.incremental=true',
-                '-Amicronaut.processing.annotations=ch.onstructive.candidates.*',
-                "-Amicronaut.processing.group=$project.group",
-                "-Amicronaut.processing.module=$project.name",
-        ])
+        sourceCompatibility = JavaVersion.toVersion('15')
+        targetCompatibility = JavaVersion.toVersion('15')
     }
 
     spotless {
@@ -88,7 +55,7 @@ subprojects { subproject ->
             googleJavaFormat()
             licenseHeader '/* Licensed under Apache-2.0 */'
 
-            importOrder 'ch', 'java', 'javax', 'org', 'com', 'com.diffplug', ''	// A sequence of package names
+            importOrder 'ch', 'java', 'javax', 'org', 'com', 'com.diffplug', ''    // A sequence of package names
             removeUnusedImports() // removes any unused imports
         }
         groovy {

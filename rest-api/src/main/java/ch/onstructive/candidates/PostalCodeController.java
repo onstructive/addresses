@@ -3,6 +3,7 @@ package ch.onstructive.candidates;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -37,8 +38,9 @@ public class PostalCodeController {
 
   @Get
   public List<PostalCodeGetModel> findAllPostalCodes() {
-    return this.postalCodeControllerMapper.toPostalCodeGetModels(
-        addressService.findAllPostalCodes());
+    return addressService.findAllPostalCodes().stream()
+        .map(postalCodeControllerMapper::toPostalCodeGetModel)
+        .collect(Collectors.toList());
   }
 
   @Get("/{id}")
